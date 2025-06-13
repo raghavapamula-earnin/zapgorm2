@@ -3,7 +3,6 @@ package zapgorm2
 import (
 	"context"
 	"errors"
-	"os"
 	"path/filepath"
 	"runtime"
 	"strings"
@@ -44,14 +43,8 @@ func New(zapLogger *zap.Logger, opts ...Option) Logger {
 		ParameterizedQueries:      false,
 	}
 
-	// Apply options
 	for _, opt := range opts {
 		opt(&l)
-	}
-
-	// Check environment variable
-	if v, ok := os.LookupEnv("ZAPGORM2_FILTER_PARAMS"); ok && strings.ToLower(v) == "true" {
-		l.ParameterizedQueries = true
 	}
 
 	return l
