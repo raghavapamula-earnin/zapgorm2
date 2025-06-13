@@ -144,8 +144,8 @@ func (l Logger) logger(ctx context.Context) *zap.Logger {
 }
 
 func (l Logger) ParamsFilter(ctx context.Context, sql string, params ...interface{}) (string, []interface{}) {
-	if !l.ParameterizedQueries {
-		return sql, params
+	if l.ParameterizedQueries {
+		return sql, nil
 	}
-	return sql, nil
+	return sql, params
 }
